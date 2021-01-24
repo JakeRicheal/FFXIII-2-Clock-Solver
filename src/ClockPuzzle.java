@@ -9,7 +9,21 @@ public class ClockPuzzle {
      */
     private final int size;
 
-    public ClockPuzzle(int size) {
+    /**
+     * The Clock Nodes within this Clock Puzzle.
+     */
+    private ClockNode[] nodes;
+
+    /**
+     * Constructor for a Clock Puzzle.
+     * @param size The number of nodes in this puzzle.
+     * @param nodeVals An array of 'size' node values.
+     */
+    public ClockPuzzle(int size, int[] nodeVals) {
         this.size = size;
+        this.nodes = new ClockNode[this.size];
+        for (int pos = 0; pos < this.size; pos++) {
+            this.nodes[pos] = new ClockNode(pos, nodeVals[pos]);
+        }
     }
 }

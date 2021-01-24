@@ -14,8 +14,23 @@ public class ClockNode {
      */
     private final int num;
 
+    /**
+     * Whether or not this node has been visited by the solver.
+     */
+    private boolean marked;
+
     public ClockNode(int pos, int num) {
         this.pos = pos;
         this.num = num;
+        this.marked = false;
     }
+
+    public boolean isMarked() {
+        return marked;
+    }
+
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
+
 }

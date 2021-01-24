@@ -37,6 +37,20 @@ public class Solver {
         printSeparation();
         System.out.println("Excellent. One moment, please.");
         printSeparation();
+
+        ClockPuzzle puzzle = new ClockPuzzle(size, nodeVals);
+
+
+    }
+
+
+    /**
+     * Attempt to solve a Clock Puzzle.
+     * @param puzzle The puzzle to be solved.
+     * @return An array containing the positions in the order needed to solve, or null if unsolvable.
+     */
+    public static int[] solvePuzzle(ClockPuzzle puzzle) {
+        return null;
     }
 
     /**
