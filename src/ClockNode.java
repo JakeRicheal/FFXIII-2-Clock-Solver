@@ -25,6 +25,14 @@ public class ClockNode {
         this.marked = false;
     }
 
+    public int getPos() {
+        return pos;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
     public boolean isMarked() {
         return marked;
     }

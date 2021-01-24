@@ -7,12 +7,28 @@ import java.util.Arrays;
 public class UnitTests {
 
     @Test
-    public void simpleTest() {
-        int[] vals1 = {1};
-        ClockPuzzle puzzle1 = new ClockPuzzle(1, vals1);
-        int[] actual = Solver.solvePuzzle(puzzle1);
+    public void nullCheck() {
+        ClockPuzzle nullPuzzle = null;
+        int[] expected = null;
+        int[] actual = Solver.solvePuzzle(nullPuzzle);
+        assert(Arrays.equals(expected, actual));
+    }
+
+    @Test
+    public void testSolveSimplePuzzle() {
+        int[] vals = {1};
+        ClockPuzzle puzzle = new ClockPuzzle(1, vals);
         int[] expected = {0};
-        boolean workedProperly = Arrays.equals(expected, actual);
-        assert(workedProperly);
+        int[] actual = Solver.solvePuzzle(puzzle);
+        assert(Arrays.equals(expected, actual));
+    }
+
+    @Test
+    public void testUnsolvablePuzzle() {
+        int[] vals = {2, 2, 2, 2};
+        ClockPuzzle puzzle = new ClockPuzzle(4, vals);
+        int[] expected = null;
+        int[] actual = Solver.solvePuzzle(puzzle);
+        assert(Arrays.equals(expected, actual));
     }
 }

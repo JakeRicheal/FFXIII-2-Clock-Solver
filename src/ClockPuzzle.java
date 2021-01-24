@@ -26,4 +26,29 @@ public class ClockPuzzle {
             this.nodes[pos] = new ClockNode(pos, nodeVals[pos]);
         }
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public ClockNode[] getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(ClockNode[] nodes) {
+        this.nodes = nodes;
+    }
+
+    /**
+     * Check that the puzzle is solved, that is, if all its nodes are marked.
+     */
+    public boolean solved() {
+        boolean solved = false;
+        for (ClockNode node : nodes) {
+            if (!node.isMarked()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
