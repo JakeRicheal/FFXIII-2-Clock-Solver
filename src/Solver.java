@@ -24,7 +24,26 @@ public class Solver {
             }
         }
 
+        int[] nodeVals = new int[size];
+
+        //TODO: Verify these inputs.
         System.out.println("Now please enter the values at these " + size + "positions:");
+        printSeparation();
+        for (int i = 0; i < size; i++) {
+            System.out.print("Value at position " + i + ": ");
+            nodeVals[i] = scan.nextInt();
+        }
+
+        printSeparation();
+        System.out.println("Excellent. One moment, please.");
+        printSeparation();
+    }
+
+    /**
+     * Print the same sequence of dashes for prettiness.
+     */
+    private static void printSeparation() {
         System.out.println("--------------------------");
     }
+
 }
