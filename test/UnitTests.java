@@ -14,6 +14,8 @@ public class UnitTests {
         assert(Arrays.equals(expected, actual));
     }
 
+    //TODO: Run an auto-solver instead of using explicit expected arrays.
+
     @Test
     public void testSolveSimplePuzzle() {
         int[] vals = {1};

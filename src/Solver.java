@@ -20,16 +20,18 @@ public class Solver {
                     validSize = true;
                 } else {
                     System.out.println("Please enter a positive number.");
+                    sizeString = scan.nextLine();
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number for the size of the puzzle.");
+                sizeString = scan.nextLine();
             }
         }
 
         int[] nodeVals = new int[size];
 
         //TODO: Verify these inputs.
-        System.out.println("Now please enter the values at these " + size + "positions:");
+        System.out.println("Now please enter the values at these " + size + " positions:");
         printSeparation();
         for (int i = 0; i < size; i++) {
             System.out.print("Value at position " + i + ": ");
@@ -51,10 +53,10 @@ public class Solver {
                 int val = puzzle.getNodes()[pos].getNum();
                 System.out.println("Select the " + val + " at position " + pos);
             }
-            printSeparation();
-            System.out.println("Have a nice day!!!");
-            printSeparation();
         }
+        printSeparation();
+        System.out.println("Have a nice day!!!");
+        printSeparation();
     }
 
 
@@ -67,14 +69,19 @@ public class Solver {
         if (puzzle == null) {
             return null;
         }
+
+        Stack<ClockNode> solution = new Stack<>();
+
         //SOLVE! Start from 0 and keep going until you can't, then back up.
         // If you can't solve it starting from position 0, start from position 1.
         // If you can't solve it starting from anywhere, say so.
-        Stack<Integer> solution = new Stack<Integer>();
-        ClockNode[] nodes = puzzle.getNodes();
         for (int startPos = 0; startPos < puzzle.getSize(); startPos++) {
-            ClockNode startNode = nodes[startPos];
-            solution.push(startPos);
+            ClockNode startNode = puzzle.getNodes()[startPos];
+            startNode.setMarked(true);
+            solution.push(startNode);
+            if (!moveOne(solution, puzzle)) {
+                solution.pop().setMarked(false);
+            };
         }
 
         if (solution.empty()) {
@@ -82,9 +89,51 @@ public class Solver {
         }
         int[] solutionArray = new int[puzzle.getSize()];
         for (int i = puzzle.getSize() - 1; i >= 0; i--) {
-            solutionArray[i] = solution.pop();
+            solutionArray[i] = solution.pop().getPos();
         }
         return solutionArray;
+    }
+
+    /**
+     * Recursive helper method for solvePuzzle.
+     * Makes one move right (clockwise) or left (counterclockwise), then returns whether the puzzle
+     *  was successfully solved from those moves.
+     * @param solution The stack containing ClockNodes in the current solution attempt.
+     * @param puzzle The clock puzzle to be solved.
+     * @return True if solved, false if not.
+     */
+    private static boolean moveOne(Stack<ClockNode> solution, ClockPuzzle puzzle) {
+        if (puzzle.solved()) {
+            return true;
+        }
+        int size = puzzle.getSize();
+        ClockNode currNode = solution.peek();
+        int rightPos = (currNode.getPos() + currNode.getNum()) % size;
+        ClockNode nextNode = puzzle.getNodes()[rightPos];
+        if (!nextNode.isMarked()) {
+            nextNode.setMarked(true);
+            solution.push(nextNode);
+            if (moveOne(solution, puzzle)) {
+                return true;
+            } else {
+                solution.pop().setMarked(false);
+            }
+        }
+
+        int leftPos = (currNode.getPos() - currNode.getNum()) % size;
+        leftPos = (leftPos + size) % size; //Java modulus doesn't wrap around if dividend is negative.
+        nextNode = puzzle.getNodes()[leftPos];
+        if (!nextNode.isMarked()) {
+            nextNode.setMarked(true);
+            solution.push(nextNode);
+            if (moveOne(solution, puzzle)) {
+                return true;
+            } else {
+                solution.pop().setMarked(false);
+            }
+        }
+
+        return false;
     }
 
     /**

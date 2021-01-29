@@ -5,7 +5,7 @@
 public class ClockNode {
 
     /**
-     * This node's position on the clock face.
+     * This node's position on the clock face. '0' is at the top, increasing clockwise.
      */
     private final int pos;
 
