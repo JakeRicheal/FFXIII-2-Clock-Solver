@@ -79,7 +79,9 @@ public class Solver {
             ClockNode startNode = puzzle.getNodes()[startPos];
             startNode.setMarked(true);
             solution.push(startNode);
-            if (!moveOne(solution, puzzle)) {
+            if (moveOne(solution, puzzle)) {
+                break;
+            } else {
                 solution.pop().setMarked(false);
             };
         }
